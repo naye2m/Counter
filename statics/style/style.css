@@ -1,0 +1,45 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+* {
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+#touchbody {
+  background: #000000ff;
+  color: white;
+  height: 100vh;
+  font: 7em bolder;
+  font-family: Monospace;
+  padding-top: 100px;
+  text-align: center;
+  opacity: 1;
+  transition: background 0.3s, color 0.3s, opacity 0.3s;
+}
+button.btn {
+  position: absolute;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-sizing: border-box;
+}
+button.btn:hover {
+  background: #666;
+}
+#reset{
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+button#install{
+  top: 15px;
+  right: 0;
+}
