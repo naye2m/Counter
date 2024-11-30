@@ -3,7 +3,7 @@ const resetButton = document.getElementById("reset");
 let count = 0;
 
 // Prompt to enable fullscreen
-if ("requestFullscreen" in document.body && confirm("Run fullscreen?")) {
+if ("requestFullscreen" in document.body && false && confirm("Run fullscreen?")) {
   try {
     document.body.requestFullscreen();
   } catch (e) {
@@ -55,7 +55,8 @@ resetButton.addEventListener("mousedown", resetCounter);
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     // navigator.serviceWorker.register('/statics/script/comp.sw.js').then((registration) => {
-    navigator.serviceWorker.register('/dist/service-worker.js').then((registration) => {
+    // navigator.serviceWorker.register('/dist/service-worker.js').then((registration) => {
+      navigator.serviceWorker.register('dist/service-worker.js').then((registration) => {
       console.log('Service Worker registered with scope:', registration.scope);
     }).catch((error) => {
       console.log('Service Worker registration failed:', error);

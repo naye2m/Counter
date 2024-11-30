@@ -1,15 +1,15 @@
 module.exports = {
-	globDirectory: 'src/', 
+	globDirectory: './', 
 	globPatterns: [
 		'**/*.{html,css,js,png,jpg}',
-		'!**/*.{map,sw.js}'  // Exclude unnecessary files like source maps and the service worker file itself
 	  ],
 	globIgnores: [
 	  '**/$RECYCLE.BIN/**', // Ignore system folders like $RECYCLE.BIN
 	  '**/*.map',           // Ignore source maps
 	  '**/sw.js',           // Don't precache the service worker itself
+	  '**/service-worker.js',           // Don't precache the service worker itself
 	],
-	swDest: 'dist/service-worker.js',
+	swDest: './dist/service-worker.js',
 	// Enable clientsClaim and skipWaiting for automatic service worker updates
 	clientsClaim: true,
 	skipWaiting: true,
@@ -28,7 +28,18 @@ module.exports = {
 		},
 	  },
 	  {
-		urlPattern: /\.(?:js|css)$/, // Match JS and CSS files
+		urlPattern: /\/$/, // Match JS and CSS files
+		handler: 'StaleWhileRevalidate', // Use stale while revalidate strategy
+		options: {
+		  cacheName: 'static-cache', // Name of the cache
+		  expiration: {
+			maxEntries: 50, // Max number of cached static files
+			maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 1 week
+		  },
+		},
+	  },
+	  {
+		urlPattern: /\.(?:html|js|css)$/, // Match JS and CSS files
 		handler: 'StaleWhileRevalidate', // Use stale while revalidate strategy
 		options: {
 		  cacheName: 'static-cache', // Name of the cache
