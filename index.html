@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Counter</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    * {
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+    #touchbody {
+      background: #000000ff;
+      color: white;
+      height: 100vh;
+      font: 7em bolder;
+      font-family: Monospace;
+      padding-top: 100px;
+      text-align: center;
+      opacity: 1;
+      transition: background 0.3s, color 0.3s, opacity 0.3s;
+    }
+    #reset {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #reset:hover {
+      background: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="touchbody">0</div>
+  <button id="reset">Reset</button>
+  <script>
+    const d = document.getElementById("touchbody");
+    const resetButton = document.getElementById("reset");
+    let count = 0;
+
+    // Prompt to enable fullscreen
+    if ("requestFullscreen" in document.body && confirm("Run fullscreen?")) {
+      try {
+        d.requestFullscreen().then(console.log);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Color palette for background changes
+    const colors = ["#000"];
+
+    // Update counter and change appearance
+    function updateCounter() {
+      count++;
+      d.textContent = count;
+
+      // Change background and text color
+      const bgColor = colors[count % colors.length];
+      // const textColor = count % 2 === 0 ? "white" : "black";
+      d.style.background = bgColor;
+      // d.style.color = textColor;
+
+      // Vibrate pattern increases with count
+      if ("vibrate" in window.navigator) {
+        //const pattern = Array(count).fill(50);
+        //window.navigator.vibrate(pattern);
+        window.navigator.vibrate(15);
+        
+      }
+    }
+
+    // Reset counter and appearance
+    function resetCounter() {
+      if(!confirm("reset counter?"))return;
+      count = 0;
+      d.textContent = count;
+      d.style.background = "black";
+      d.style.color = "white";
+    }
+
+    // Event listeners
+   // d.addEventListener("touchstart", updateCounter);
+    d.addEventListener("mousedown", updateCounter);
+    // resetButton.addEventListener("touchstart", resetCounter);
+    resetButton.addEventListener("mousedown", resetCounter);
+  </script>
+</body>
+</html>
